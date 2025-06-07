@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Builder Pro 2.0</title>
+    <!-- Google Fonts (Obligatoire pour design identique) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Lien vers le CSS externe -->
+    <link rel="stylesheet" href="Style/main.css">
+</head>
+<body data-theme="dark">
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left"></div>
+            <h1 class="logo">
+                <span class="logo-icon">✨</span>
+                Prompt Builder Pro 2.0
+            </h1>
+            <div class="header-controls">
+                <button class="btn btn-secondary" onclick="toggleHistory()">
+                    <span>📚</span> Historique
+                </button>
+                <button class="btn btn-secondary" onclick="showImportModal()">
+                    <span>📥</span> Importer
+                </button>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Changer le thème">
+                    <div class="theme-toggle-circle"></div>
+                </button>
+                <div class="save-indicator" id="saveIndicator" style="display: none; align-items: center; gap: 0.4rem; margin-left: 1.2rem;">
+                    <span class="save-icon" style="font-size: 1.15rem;">💾</span>
+                    <span class="save-text">Sauvegardé</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card editor-section">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <div class="card-icon">📝</div>
+                    Créateur de Prompt
+                    <span class="badge">v2.0</span>
+                </h2>
+            </div>
+
+            <div class="form-fields-container" id="formFieldsContainer">
+                <div class="form-group" draggable="true" data-field="role">
+                    <div class="drag-handle">⋮⋮</div>
+                    <label for="role">
+                        Rôle
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Définissez le rôle ou l'expertise de l'IA</span>
+                        </span>
+                    </label>
+                    <input type="text" id="role" placeholder="Ex: Tu es un expert en marketing digital..." />
+                </div>
+
+                <div class="form-group" draggable="true" data-field="context">
+                    <div class="drag-handle">⋮⋮</div>
+                    <label for="context">
+                        Contexte
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Fournissez le contexte nécessaire</span>
+                        </span>
+                    </label>
+                    <textarea id="context" placeholder="Ex: Dans le cadre d'une campagne de lancement..."></textarea>
+                </div>
+
+                <div class="form-group" draggable="true" data-field="task">
+                    <div class="drag-handle">⋮⋮</div>
+                    <label for="task">
+                        Tâche
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Décrivez la tâche à accomplir</span>
+                        </span>
+                    </label>
+                    <textarea id="task" placeholder="Ex: Ta mission est de créer une stratégie..."></textarea>
+                </div>
+
+                <div class="form-group" draggable="true" data-field="instructions">
+                    <div class="drag-handle">⋮⋮</div>
+                    <label for="instructions">
+                        Instructions
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Listez les directives spécifiques</span>
+                        </span>
+                    </label>
+                    <textarea id="instructions" placeholder="Ex: - Utilise un ton professionnel&#10;- Structure en sections&#10;- Inclus des exemples"></textarea>
+                </div>
+
+                <div class="form-group" draggable="true" data-field="output">
+                    <div class="drag-handle">⋮⋮</div>
+                    <label for="output">
+                        Format de sortie
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Précisez le format souhaité</span>
+                        </span>
+                    </label>
+                    <input type="text" id="output" placeholder="Ex: Rapport structuré avec tableaux" />
+                </div>
+
+                <div class="form-group" draggable="true" data-field="variables">
+                    <div class="drag-handle">⋮⋮</div>
+                    <label>
+                        Variables personnalisées
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Ajoutez des variables dynamiques</span>
+                        </span>
+                    </label>
+                    <div class="variables-container" id="variablesContainer">
+                        <div class="variable-item">
+                            <input type="text" placeholder="Nom de la variable" class="var-name" />
+                            <input type="text" placeholder="Valeur" class="var-value" />
+                            <button class="btn btn-danger" onclick="removeVariable(this)">✕</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="addVariable()">
+                        <span>➕</span> Ajouter une variable
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="template">Templates prédéfinis</label>
+                <div class="template-dropdown">
+                    <button class="template-button" onclick="toggleTemplateDropdown()">
+                        <span id="selectedTemplate">-- Choisir un template --</span>
+                        <span>▼</span>
+                    </button>
+                    <div class="template-dropdown-menu" id="templateDropdownMenu">
+                        <!-- Les templates seront générés dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card preview-section">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <div class="card-icon">👁️</div>
+                    Aperçu du Prompt
+                    <span class="loader" id="previewLoader" style="display: none;"></span>
+                </h2>
+            </div>
+
+            <div class="format-tabs">
+                <button class="tab active" onclick="switchFormat('text')">Texte</button>
+                <button class="tab" onclick="switchFormat('markdown')">Markdown</button>
+                <button class="tab" onclick="switchFormat('json')">JSON</button>
+                <button class="tab" onclick="switchFormat('xml')">XML</button>
+            </div>
+
+            <div class="preview-content" id="previewContent" tabindex="0" aria-label="Aperçu du prompt">
+                <div class="preview-placeholder">
+                    <div class="preview-placeholder-icon">📝</div>
+                    <div>Commencez à remplir le formulaire pour voir l'aperçu...</div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn" onclick="copyToClipboard()"  aria-label="Copier le contenu de l’aperçu">
+                    <span>📋</span> Copier
+                </button>
+                <button class="btn btn-secondary" onclick="downloadPrompt()">
+                    <span>💾</span> Télécharger
+                </button>
+                <button class="btn btn-secondary" onclick="sharePrompt()">
+                    <span>🔗</span> Partager
+                </button>
+                <button class="btn btn-secondary" onclick="undoForm()" id="undoBtn" title="Annuler (Ctrl+Z)" aria-label="Annuler la dernière modification">
+                    <span>⎌</span> Annuler
+                </button>
+                <button class="btn btn-secondary" onclick="redoForm()" id="redoBtn" title="Restaurer (Ctrl+Y)" aria-label="Restaurer la modification annulée">
+                    <span>↺</span> Restaurer
+                </button>
+                <button class="btn btn-secondary" onclick="clearForm()">
+                    <span>🗑️</span> Réinitialiser
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel d'historique -->
+    <div class="history-panel" id="historyPanel">
+        <div class="card-header">
+            <h3 class="card-title">
+                <div class="card-icon">📚</div>
+                Historique
+            </h3>
+        </div>
+        <div id="historyList">
+            <!-- L'historique sera généré dynamiquement -->
+        </div>
+    </div>
+
+    <!-- Modal d'import -->
+    <div class="modal" id="importModal" role="dialog" aria-modal="true" aria-labelledby="importModalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="importModalTitle">📥 Importer un prompt</h3>
+                <button class="modal-close" onclick="closeImportModal()">✕</button>
+            </div>
+            <div class="form-group">
+                <label>Format détecté : <span id="detectedFormat" style="color: var(--accent);">-</span></label>
+                <textarea id="importTextarea" rows="12" placeholder="Collez votre prompt ici (JSON, XML, Markdown ou Texte)..."></textarea>
+            </div>
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
+                <button class="btn btn-secondary" onclick="closeImportModal()">Annuler</button>
+                <button class="btn" onclick="importPrompt()">
+                    <span>📥</span> Importer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container pour les toasts -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Lien vers le JS externe (toujours tout à la fin du body) -->
+    <script type="module" src="scripts/app.js"></script>
+</body>
+</html>
