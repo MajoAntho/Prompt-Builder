@@ -1,0 +1,109 @@
+/* Design Tokens - Palette, Typo, Spacing, Shadows, Borders */
+
+:root {
+  /* Couleurs principales */
+  --color-primary-100: #dbeafe;
+  --color-primary-500: #3b82f6;
+  --color-primary-700: #2563eb;
+  --color-primary-900: #1e293b;
+
+  /* Couleurs de fond */
+  --color-bg-primary-dark: #000000;
+  --color-bg-secondary-dark: #0a0a0a;
+  --color-bg-tertiary-dark: #171717;
+  --color-bg-card-dark: #0f0f0f;
+  --color-bg-hover-dark: #1a1a1a;
+
+  --color-bg-primary-light: #ffffff;
+  --color-bg-secondary-light: #fafafa;
+  --color-bg-tertiary-light: #f4f4f5;
+  --color-bg-card-light: #ffffff;
+  --color-bg-hover-light: #f4f4f5;
+
+  /* Couleurs texte */
+  --color-text-primary-dark: #fafafa;
+  --color-text-secondary-dark: #a1a1aa;
+  --color-text-tertiary-dark: #71717a;
+
+  --color-text-primary-light: #09090b;
+  --color-text-secondary-light: #52525b;
+  --color-text-tertiary-light: #71717a;
+
+  /* Couleurs accent */
+  --color-accent-500: #3b82f6;
+  --color-accent-700: #2563eb;
+  --color-accent-light: rgba(59, 130, 246, 0.1);
+  --color-accent-glow: rgba(59, 130, 246, 0.4);
+
+  --color-accent-500-light: #2563eb;
+  --color-accent-700-light: #1d4ed8;
+  --color-accent-light-light: rgba(37, 99, 235, 0.1);
+  --color-accent-glow-light: rgba(37, 99, 235, 0.2);
+
+  /* Couleurs sémantiques */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #6366f1;
+
+  /* Bordures */
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.16);
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+
+  /* Espacements */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Typographie */
+  --font-family-base: 'Inter', Arial, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /* Ombres */
+  --shadow-xs: 0 1px 2px 0 rgba(0,0,0,0.04);
+  --shadow-sm: 0 1.5px 4px 0 rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px 0 rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 24px 0 rgba(0,0,0,0.16);
+}
+
+/* Thème clair */
+[data-theme="light"] {
+  --color-bg-primary: var(--color-bg-primary-light);
+  --color-bg-secondary: var(--color-bg-secondary-light);
+  --color-bg-tertiary: var(--color-bg-tertiary-light);
+  --color-bg-card: var(--color-bg-card-light);
+  --color-bg-hover: var(--color-bg-hover-light);
+
+  --color-text-primary: var(--color-text-primary-light);
+  --color-text-secondary: var(--color-text-secondary-light);
+  --color-text-tertiary: var(--color-text-tertiary-light);
+
+  --color-accent-500: var(--color-accent-500-light);
+  --color-accent-700: var(--color-accent-700-light);
+  --color-accent-light: var(--color-accent-light-light);
+  --color-accent-glow: var(--color-accent-glow-light);
+}
+
+/* Thème sombre (par défaut) */
+:root, [data-theme="dark"] {
+  --color-bg-primary: var(--color-bg-primary-dark);
+  --color-bg-secondary: var(--color-bg-secondary-dark);
+  --color-bg-tertiary: var(--color-bg-tertiary-dark);
+  --color-bg-card: var(--color-bg-card-dark);
+  --color-bg-hover: var(--color-bg-hover-dark);
+
+  --color-text-primary: var(--color-text-primary-dark);
+  --color-text-secondary: var(--color-text-secondary-dark);
+  --color-text-tertiary: var(--color-text-tertiary-dark);
+}

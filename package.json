@@ -1,0 +1,32 @@
+{
+  "name": "prompt-builder-pro",
+  "version": "2.0.0",
+  "description": "Application web pour créer des prompts personnalisés",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "validate": "npm run lint && npm run format:check && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "@vitest/coverage-v8": "^0.34.6",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.4.1",
+    "eslint-plugin-security": "^1.7.1",
+    "prettier": "^3.5.3",
+    "vite": "^6.3.5",
+    "vitest": "^1.6.1"
+  }
+}

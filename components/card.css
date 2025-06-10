@@ -1,0 +1,44 @@
+/* Card Component - Design System */
+
+.card {
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-default);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  transition: box-shadow 0.15s, border 0.15s;
+}
+
+.card__header {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.card__content {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}
+
+.card__actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+/* Variante simple */
+.card--simple {
+  box-shadow: var(--shadow-xs);
+  padding: var(--spacing-md);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .card {
+    padding: var(--spacing-md);
+  }
+}

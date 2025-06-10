@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/design-system.css">
+    <title>Prompt Builder Pro 2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body data-theme="dark">
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left"></div>
+            <h1 class="logo">
+                <span class="logo-icon">✨</span>
+                Prompt Builder Pro 2.0
+            </h1>
+            <div class="header-controls">
+                <button class="btn btn-secondary" id="historyBtn">
+                    <span>📚</span> Historique
+                </button>
+                <button class="btn btn-secondary" id="importBtn">
+                    <span>📥</span> Importer
+                </button>
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Changer le thème">
+                    <div class="theme-toggle-circle"></div>
+                </button>
+                <div class="save-indicator" id="saveIndicator" style="display: none; align-items: center; gap: 0.4rem; margin-left: 1.2rem;">
+                    <span class="save-icon" style="font-size: 1.15rem;">💾</span>
+                    <span class="save-text">Sauvegardé</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card editor-section">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <div class="card-icon">📝</div>
+                    Créateur de Prompt
+                    <span class="badge">v2.0</span>
+                </h2>
+            </div>
+
+            <div class="form-fields-container" id="formFieldsContainer" role="list">
+                <div class="form-group" draggable="true" data-field="role" tabindex="0" aria-grabbed="false" role="listitem">
+                    <div class="drag-handle" role="button" aria-label="Déplacer le champ Rôle" tabindex="0">⋮⋮</div>
+                    <label for="role">
+                        Rôle
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Définissez le rôle ou l'expertise de l'IA</span>
+                        </span>
+                    </label>
+                    <input type="text" id="role" placeholder="Ex: Tu es un expert en marketing digital..." />
+                </div>
+
+                <div class="form-group" draggable="true" data-field="context" tabindex="0" aria-grabbed="false" role="listitem">
+                    <div class="drag-handle" role="button" aria-label="Déplacer le champ Contexte" tabindex="0">⋮⋮</div>
+                    <label for="context">
+                        Contexte
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Fournissez le contexte nécessaire</span>
+                        </span>
+                    </label>
+                    <textarea id="context" placeholder="Ex: Dans le cadre d'une campagne de lancement..."></textarea>
+                </div>
+
+                <div class="form-group" draggable="true" data-field="task" tabindex="0" aria-grabbed="false" role="listitem">
+                    <div class="drag-handle" role="button" aria-label="Déplacer le champ Tâche" tabindex="0">⋮⋮</div>
+                    <label for="task">
+                        Tâche
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Décrivez la tâche à accomplir</span>
+                        </span>
+                    </label>
+                    <textarea id="task" placeholder="Ex: Ta mission est de créer une stratégie..."></textarea>
+                </div>
+
+                <div class="form-group" draggable="true" data-field="instructions" tabindex="0" aria-grabbed="false" role="listitem">
+                    <div class="drag-handle" role="button" aria-label="Déplacer le champ Instructions" tabindex="0">⋮⋮</div>
+                    <label for="instructions">
+                        Instructions
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Listez les directives spécifiques</span>
+                        </span>
+                    </label>
+                    <textarea id="instructions" placeholder="Ex: - Utilise un ton professionnel&#10;- Structure en sections&#10;- Inclus des exemples"></textarea>
+                </div>
+
+                <div class="form-group" draggable="true" data-field="output" tabindex="0" aria-grabbed="false" role="listitem">
+                    <div class="drag-handle" role="button" aria-label="Déplacer le champ Format de sortie" tabindex="0">⋮⋮</div>
+                    <label for="output">
+                        Format de sortie
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Précisez le format souhaité</span>
+                        </span>
+                    </label>
+                    <input type="text" id="output" placeholder="Ex: Rapport structuré avec tableaux" />
+                </div>
+
+                <div class="form-group" draggable="true" data-field="variables" tabindex="0" aria-grabbed="false" role="listitem">
+                    <div class="drag-handle" role="button" aria-label="Déplacer le champ Variables" tabindex="0">⋮⋮</div>
+                    <label>
+                        Variables personnalisées
+                        <span class="tooltip">
+                            <span class="tooltip-trigger">ⓘ</span>
+                            <span class="tooltip-content">Ajoutez des variables dynamiques</span>
+                        </span>
+                    </label>
+                    <div class="variables-container" id="variablesContainer">
+                        <div class="variable-item">
+                            <input type="text" placeholder="Nom de la variable" class="var-name" aria-label="Nom de la variable" />
+                            <input type="text" placeholder="Valeur" class="var-value" aria-label="Valeur de la variable" />
+                            <button class="btn btn-danger var-remove" tabindex="0" aria-label="Supprimer la variable" role="button">✕</button>
+                            <button class="btn btn-secondary var-up" tabindex="0" aria-label="Monter la variable" role="button">▲</button>
+                            <button class="btn btn-secondary var-down" tabindex="0" aria-label="Descendre la variable" role="button">▼</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" id="addVariableBtn" tabindex="0" aria-label="Ajouter une variable">
+                        <span>➕</span> Ajouter une variable
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="template">Templates prédéfinis</label>
+                <div class="template-dropdown">
+                    <button class="template-button" id="templateDropdownBtn" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Ouvrir la liste des templates">
+                        <span id="selectedTemplate">-- Choisir un template --</span>
+                        <span>▼</span>
+                    </button>
+                    <div class="template-dropdown-menu" id="templateDropdownMenu" role="listbox" aria-label="Templates prédéfinis" aria-hidden="true">
+                        <!-- Les templates seront générés dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card preview-section">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <div class="card-icon">👁️</div>
+                    Aperçu du Prompt
+                    <span class="loader" id="previewLoader" style="display: none;"></span>
+                </h2>
+            </div>
+
+            <div class="format-tabs" role="tablist">
+                <button class="tab active" id="formatTextBtn" role="tab" aria-selected="true" tabindex="0">Texte</button>
+                <button class="tab" id="formatMarkdownBtn" role="tab" aria-selected="false" tabindex="0">Markdown</button>
+                <button class="tab" id="formatJsonBtn" role="tab" aria-selected="false" tabindex="0">JSON</button>
+                <button class="tab" id="formatXmlBtn" role="tab" aria-selected="false" tabindex="0">XML</button>
+            </div>
+
+            <div class="preview-content" id="previewContent" tabindex="0" aria-label="Aperçu du prompt">
+                <div class="preview-placeholder">
+                    <div class="preview-placeholder-icon">📝</div>
+                    <div>Commencez à remplir le formulaire pour voir l'aperçu...</div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn" id="copyBtn" aria-label="Copier le contenu de l'aperçu">
+                    <span>📋</span> Copier
+                </button>
+                <button class="btn btn-secondary" id="downloadBtn">
+                    <span>💾</span> Télécharger
+                </button>
+                <button class="btn btn-secondary" id="shareBtn">
+                    <span>🔗</span> Partager
+                </button>
+                <button class="btn btn-secondary" id="undoBtn" title="Annuler (Ctrl+Z)" aria-label="Annuler la dernière modification">
+                    <span>⎌</span> Annuler
+                </button>
+                <button class="btn btn-secondary" id="redoBtn" title="Restaurer (Ctrl+Y)" aria-label="Restaurer la modification annulée">
+                    <span>↺</span> Restaurer
+                </button>
+                <button class="btn btn-secondary" id="clearBtn">
+                    <span>🗑️</span> Réinitialiser
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel d'historique -->
+    <div class="history-panel" id="historyPanel">
+        <div class="card-header">
+            <h3 class="card-title">
+                <div class="card-icon">📚</div>
+                Historique
+            </h3>
+        </div>
+        <div id="historyList">
+            <!-- L'historique sera généré dynamiquement -->
+        </div>
+    </div>
+
+    <!-- Modal d'import -->
+    <div class="modal" id="importModal" role="dialog" aria-modal="true" aria-labelledby="importModalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="importModalTitle">📥 Importer un prompt</h3>
+                <button class="modal-close" id="importModalCloseBtn">✕</button>
+            </div>
+            <div class="form-group">
+                <label>Format détecté : <span id="detectedFormat" style="color: var(--accent);">-</span></label>
+                <textarea id="importTextarea" rows="12" placeholder="Collez votre prompt ici (JSON, XML, Markdown ou Texte)..."></textarea>
+            </div>
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
+                <button class="btn btn-secondary" id="importModalCancelBtn">Annuler</button>
+                <button class="btn" id="importModalImportBtn">
+                    <span>📥</span> Importer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container pour les toasts -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="scripts/app.js"></script>
+</body>
+</html>
